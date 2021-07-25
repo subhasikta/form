@@ -1,8 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const mongoose = require("mongoose");
 const validator = require("validator");
-const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const RegisterUser = require("../model/register");
 
@@ -65,13 +63,13 @@ router.post("/register", async (req, res) => {
             errorMessage: "Enter Mother's name",
         });
 
-    if (mobileNumber.length < 10)
+    if (mobileNumber.length <= 10)
         return res.status(400).json({
             errorMessage: "Enter 10 digit mobile number",
         });
 
     // Check email id is already exist or not
-    const isExistemail = await RegisterUser.findOne({ email: email });
+    const isExistemail = await RegisterUser.find({ email: email });
     if (isExistemail)
         return res
             .status(400)
@@ -79,7 +77,7 @@ router.post("/register", async (req, res) => {
 
     // hashing the pasword
     const salt = await bcrypt.genSalt(12);
-    const hashPassword = await bcrypt.hash(password, salt);
+    const hashPassword = await bcrypt.hash(req.body.password, salt);
     const hashConfirmPassword = await bcrypt.hash(confirmPassword, salt);
 
     try {
@@ -96,7 +94,7 @@ router.post("/register", async (req, res) => {
 
         });
         const RegisterData = await RegisterUserData.save();
-        res.status(201).json({RegisterData});
+        res.status(201).send(RegisterData);
     } catch (error) {
         res.status(400).json({ success: false });
     }

@@ -1,11 +1,9 @@
 const mongoose = require("mongoose");
 
 const RegisterShema = new mongoose.Schema({
-    _id: mongoose.Schema.Types.ObjectId,
     email: {
         type: String,
-        require: true,
-        unique: true
+        require: true
     },
     password: {
         type: String,
@@ -38,11 +36,10 @@ const RegisterShema = new mongoose.Schema({
     mobileNumber: {
         type: Number,
         require: true,
-        unique: true
     },
 
 });
 
-const RegisterUser = new mongoose.model("Register", RegisterShema);
+const RegisterUser = mongoose.model("Register", RegisterShema);
 
 module.exports = RegisterUser;
