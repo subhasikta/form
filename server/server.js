@@ -7,11 +7,11 @@ const bodyParser = require("body-parser");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
-
 //Bodyparser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.use(cors({origin: "*"}));
 
 mongoose.connect(mongoDB.mongodbURL, {
     useNewUrlParser: true,
