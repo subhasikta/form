@@ -69,7 +69,7 @@ router.post("/register", async (req, res) => {
         });
 
     // Check email id is already exist or not
-    const isExistemail = await RegisterUser.find({ email: email });
+    const isExistemail = await RegisterUser.findOne({ email: email });
     if (isExistemail)
         return res
             .status(400)
@@ -77,7 +77,7 @@ router.post("/register", async (req, res) => {
 
     // hashing the pasword
     const salt = await bcrypt.genSalt(12);
-    const hashPassword = await bcrypt.hash(req.body.password, salt);
+    const hashPassword = await bcrypt.hash(password, salt);
     const hashConfirmPassword = await bcrypt.hash(confirmPassword, salt);
 
     try {
