@@ -58,11 +58,11 @@ const FormUserDetails = ({ handelSubmit, handleChange, values }) => {
             placeholder: "Mobile Number",
             defaultValue: values.mobileNumber
         },
-        {
-            type: "select",
-            name: "city",
-            citySelect: ["Berhampur", "xiegfi", "kjxanid"]
-        },
+        // {
+        //     type: "select",
+        //     name: "city",
+        //     citySelect: ["Berhampur", "xiegfi", "kjxanid"]
+        // },
     ];
 
     return (
@@ -85,7 +85,7 @@ const FormUserDetails = ({ handelSubmit, handleChange, values }) => {
                     )
                 })}
                 <button onClick={handelSubmit}>
-                    Submit
+                    Register
                 </button>
             </form>
         </Fragment>

@@ -15,7 +15,7 @@ router.post("/register", async (req, res) => {
         fatherName,
         motherName,
         mobileNumber
-    } = req.body;
+    } = req.body.values;
 
     // Validation
     if (!email || !password || !confirmPassword || !firstName || !lastName || !gender || !fatherName || !motherName || !mobileNumber)
@@ -63,7 +63,7 @@ router.post("/register", async (req, res) => {
             errorMessage: "Enter Mother's name",
         });
 
-    if (mobileNumber.length <= 10)
+    if (mobileNumber.length < 10)
         return res.status(400).json({
             errorMessage: "Enter 10 digit mobile number",
         });

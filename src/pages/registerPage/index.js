@@ -5,33 +5,25 @@ import FormUserDetails from "../../components/userForm/formUserDetails";
 const RegisterForm = () => {
 
     const [state, setstate] = useState({
-        email: "",
-        password: "",
-        confirmPassword: "",
-        firstName: "",
-        lastName: "",
-        gender: "",
-        fatherName: "",
-        motherName: "",
-        mobileNumber: "",
-        city: ""
+        email: "admin@gmail.com",
+        password: "Admn@123",
+        confirmPassword: "Admn@123",
+        firstName: "admin",
+        lastName: "majhi",
+        gender: "male",
+        fatherName: "abcdef",
+        motherName: "poiuytt",
+        mobileNumber: "8409876512",
+        // city: ""
     });
 
     const handelSubmit = async (e) => {
         e.preventDefault();
-        // console.log(values);
-        const response = await axios.post("localhost:5000/api/register", {
-            email: values.email,
-            password: values.password,
-            confirmPassword: values.confirmPassword,
-            firstName: values.firstName,
-            lastName: values.lastName,
-            gender: values.email,
-            fatherName: values.fatherName,
-            motherName: values.motherName,
-            mobileNumber: values.mobileNumber
+        console.log(values);
+        const response = await axios.post("http://localhost:5000/api/register", {
+            values
         });
-        console.log(response);
+        console.log("res",response);
         // setstate({
         //     ...state,
         //     email: "",
