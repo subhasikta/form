@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 import FormLoginDetails from "../../components/userForm/formLoginDetails";
 
@@ -11,6 +12,8 @@ const RegisterForm = () => {
     const handelSubmit = async (e) => {
         e.preventDefault();
         console.log(values);
+        const response = await axios.post("http://localhost:5000/api/login", { values });
+        console.log("resLogin", response);
         setstate({
             ...state,
             email: "",
@@ -25,7 +28,6 @@ const RegisterForm = () => {
     };
 
     const { email, password } = state;
-
     const values = { email, password };
 
     return (

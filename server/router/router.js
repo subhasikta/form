@@ -2,8 +2,9 @@ const express = require("express");
 const router = express.Router();
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const RegisterUser = require("../model/register");
-
+const SecretKey = require("../config/keys");
 
 // Register
 router.post("/register", async (req, res) => {
@@ -77,7 +78,7 @@ router.post("/register", async (req, res) => {
             .status(400)
             .json({ errorMessage: "This email is already exist. Please enter another email" });
 
-    // hashing the pasword
+    // Pasword hashing
     const salt = await bcrypt.genSalt(12);
     const hashPassword = await bcrypt.hash(password, salt);
     const hashConfirmPassword = await bcrypt.hash(confirmPassword, salt);
@@ -96,7 +97,7 @@ router.post("/register", async (req, res) => {
 
         });
         const RegisterData = await RegisterUserData.save();
-        res.status(201).send(RegisterData);
+        res.status(200).send(RegisterData);
     } catch (error) {
         res.status(400).json({ success: false });
     }
@@ -107,29 +108,28 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
     try {
         const { email, password } = req.body.values;
-        const loginUser = await loginUser.findOne({ email: email });
+        const loginUser = await RegisterUser.findOne({ email: email });
+        // console.log(loginUser);
+
         if (!loginUser)
             return res.status(500).json({
                 errorMessage: "No account with this email has been registered",
             });
-        const isMatch = await bcrypt.compare(password, loginUser.password);
 
-        if (!isMatch)
+        const isPasswordMatch = await bcrypt.compare(password, loginUser.password);
+        if (!isPasswordMatch)
             return res.status(400).json({
-                errorMessage: "Your password / email not match , try again . ",
+                errorMessage: "Your password/email not match , try again.",
             });
 
         // JWt token generate
-        const token = jwt.sign({ id: loginUser._id }, Secretkeys.secretTokenId);
-        res.json({
-            token,
-            loginUser: {
-                id: loginUser._id,
-                name: loginUser.name,
-                email: loginUser.email,
-            },
+        const token = jwt.sign({ id: loginUser._id }, SecretKey.seceretTokenId);
+        res.status(200).json({
+            token: token,
+            id: loginUser._id
         });
-    } catch (error) {
+    }
+    catch (error) {
         res.status(500).json({ errorMessage: "Internal server error." });
     }
 });
