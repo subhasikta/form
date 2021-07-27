@@ -4,6 +4,8 @@ const validator = require("validator");
 const bcrypt = require("bcryptjs");
 const RegisterUser = require("../model/register");
 
+
+// Register
 router.post("/register", async (req, res) => {
     const {
         email,
@@ -97,6 +99,38 @@ router.post("/register", async (req, res) => {
         res.status(201).send(RegisterData);
     } catch (error) {
         res.status(400).json({ success: false });
+    }
+});
+
+
+// Login
+router.post("/login", async (req, res) => {
+    try {
+        const { email, password } = req.body.values;
+        const loginUser = await loginUser.findOne({ email: email });
+        if (!loginUser)
+            return res.status(500).json({
+                errorMessage: "No account with this email has been registered",
+            });
+        const isMatch = await bcrypt.compare(password, loginUser.password);
+
+        if (!isMatch)
+            return res.status(400).json({
+                errorMessage: "Your password / email not match , try again . ",
+            });
+
+        // JWt token generate
+        const token = jwt.sign({ id: loginUser._id }, Secretkeys.secretTokenId);
+        res.json({
+            token,
+            loginUser: {
+                id: loginUser._id,
+                name: loginUser.name,
+                email: loginUser.email,
+            },
+        });
+    } catch (error) {
+        res.status(500).json({ errorMessage: "Internal server error." });
     }
 });
 

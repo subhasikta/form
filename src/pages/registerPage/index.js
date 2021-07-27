@@ -5,15 +5,15 @@ import FormUserDetails from "../../components/userForm/formUserDetails";
 const RegisterForm = () => {
 
     const [state, setstate] = useState({
-        email: "admin@gmail.com",
-        password: "Admn@123",
-        confirmPassword: "Admn@123",
-        firstName: "admin",
-        lastName: "majhi",
-        gender: "male",
-        fatherName: "abcdef",
-        motherName: "poiuytt",
-        mobileNumber: "8409876512",
+        email: "",
+        password: "",
+        confirmPassword: "",
+        firstName: "",
+        lastName: "",
+        gender: "",
+        fatherName: "",
+        motherName: "",
+        mobileNumber: "",
         // city: ""
     });
 
@@ -24,19 +24,19 @@ const RegisterForm = () => {
             values
         });
         console.log("res",response);
-        // setstate({
-        //     ...state,
-        //     email: "",
-        //     password: "",
-        //     confirmPassword: "",
-        //     firstName: "",
-        //     lastName: "",
-        //     gender: "",
-        //     fatherName: "",
-        //     motherName: "",
-        //     mobileNumber: "",
-        //     city: ""
-        // });
+        setstate({
+            ...state,
+            email: "",
+            password: "",
+            confirmPassword: "",
+            firstName: "",
+            lastName: "",
+            gender: "",
+            fatherName: "",
+            motherName: "",
+            mobileNumber: "",
+            // city: ""
+        });
     };
 
     const handleChange = (e) => {
