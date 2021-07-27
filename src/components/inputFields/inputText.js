@@ -1,6 +1,6 @@
 import React from "react";
 
-const InputTextField = ({ eachField, handleChange }) => {
+const InputTextField = ({ eachField, handleChange, errorMessage }) => {
 
     return (
         <div>
@@ -11,6 +11,7 @@ const InputTextField = ({ eachField, handleChange }) => {
                 value={eachField.defaultValue}
                 onChange={handleChange}
             />
+            <div>{errorMessage ? errorMessage : ""}</div>
         </div>
     );
 };

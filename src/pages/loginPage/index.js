@@ -6,19 +6,27 @@ const RegisterForm = () => {
 
     const [state, setstate] = useState({
         email: "",
-        password: "",
+        password: ""
     });
+    const [error, setError] = useState({});
 
     const handelSubmit = async (e) => {
         e.preventDefault();
         console.log(values);
-        const response = await axios.post("http://localhost:5000/api/login", { values });
-        console.log("resLogin", response);
-        setstate({
-            ...state,
-            email: "",
-            password: ""
-        });
+        try {
+            const response = await axios.post("http://localhost:5000/api/login", { values });
+            console.log("resLogin", response);
+            setstate({
+                ...state,
+                email: "",
+                password: ""
+            });
+        } catch (e) {
+            e.response.data.errorMessage &&
+                setError(e.response.data.errorMessage);
+            setTimeout(console.log(error),3000);
+            // console.log(error);
+        }
     };
 
     const handleChange = (e) => {
@@ -35,6 +43,7 @@ const RegisterForm = () => {
             values={values}
             handleChange={handleChange}
             handelSubmit={handelSubmit}
+            errorMessage={error}
         />
     )
 };
