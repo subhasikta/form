@@ -2,7 +2,6 @@ import React from "react";
 
 const InputTextField = ({ eachField, handleChange, errorMsg }) => {
 
-    // console.log(errorMsg);
     return (
         <div>
             <input
@@ -12,7 +11,7 @@ const InputTextField = ({ eachField, handleChange, errorMsg }) => {
                 value={eachField.defaultValue}
                 onChange={handleChange}
             />
-            <p>{errorMsg && errorMsg}</p>
+            <div>{errorMsg && eachField.name === "email" ? errorMsg.emailError : errorMsg.passwordError}</div>
         </div>
     );
 };

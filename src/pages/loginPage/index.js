@@ -12,7 +12,6 @@ const RegisterForm = () => {
 
     const handelSubmit = async (e) => {
         e.preventDefault();
-        console.log(values);
         try {
             const response = await axios.post("http://localhost:5000/api/login", { values });
             console.log("resLogin", response);
@@ -22,7 +21,7 @@ const RegisterForm = () => {
                 password: ""
             });
         } catch (e) {
-            setErrorMsg(e.response.data.errorMessage);
+            setErrorMsg(e.response.data.ErrorMsg);
         }
     };
 

@@ -19,7 +19,6 @@ const RegisterForm = () => {
 
     const handelSubmit = async (e) => {
         e.preventDefault();
-        console.log(values);
         const response = await axios.post("http://localhost:5000/api/register", { values });
         console.log("res", response);
         setstate({

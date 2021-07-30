@@ -109,17 +109,16 @@ router.post("/login", async (req, res) => {
     try {
         const { email, password } = req.body.values;
         const loginUser = await RegisterUser.findOne({ email: email });
-        // console.log(loginUser);
 
         if (!loginUser)
             return res.status(500).json({
-                errorMessage: "No account with this email has been registered",
+                ErrorMsg: { emailError: "No account with this email has been registered" },
             });
 
         const isPasswordMatch = await bcrypt.compare(password, loginUser.password);
         if (!isPasswordMatch)
             return res.status(400).json({
-                errorMessage: "Your password/email not match , try again.",
+                ErrorMsg: { passwordError: "Your password/email not match , try again." },
             });
 
         // JWt token generate
