@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import FormLoginDetails from "../../components/userForm/formLoginDetails";
 
 const RegisterForm = () => {
@@ -8,7 +8,7 @@ const RegisterForm = () => {
         email: "",
         password: ""
     });
-    const [error, setError] = useState({});
+    const [errorMsg, setErrorMsg] = useState("");
 
     const handelSubmit = async (e) => {
         e.preventDefault();
@@ -22,12 +22,10 @@ const RegisterForm = () => {
                 password: ""
             });
         } catch (e) {
-            e.response.data.errorMessage &&
-                setError(e.response.data.errorMessage);
-            setTimeout(console.log(error),3000);
-            // console.log(error);
+            setErrorMsg(e.response.data.errorMessage);
         }
     };
+    // console.log(errorMsg);
 
     const handleChange = (e) => {
         e.preventDefault();
@@ -39,12 +37,14 @@ const RegisterForm = () => {
     const values = { email, password };
 
     return (
-        <FormLoginDetails
-            values={values}
-            handleChange={handleChange}
-            handelSubmit={handelSubmit}
-            errorMessage={error}
-        />
+        <Fragment>
+            <FormLoginDetails
+                values={values}
+                handleChange={handleChange}
+                handelSubmit={handelSubmit}
+                errorMsg={errorMsg}
+            />
+        </Fragment>
     )
 };
 

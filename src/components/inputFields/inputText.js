@@ -1,9 +1,11 @@
 import React from "react";
 
-const InputTextField = ({ eachField, handleChange, errorMessage }) => {
+const InputTextField = ({ eachField, handleChange, errorMsg }) => {
 
     return (
         <div>
+            {console.log(errorMsg)}
+
             <input
                 type={eachField.type}
                 name={eachField.name}
@@ -11,7 +13,7 @@ const InputTextField = ({ eachField, handleChange, errorMessage }) => {
                 value={eachField.defaultValue}
                 onChange={handleChange}
             />
-            <div>{errorMessage ? errorMessage : ""}</div>
+            <p>{errorMsg && errorMsg}</p>
         </div>
     );
 };
