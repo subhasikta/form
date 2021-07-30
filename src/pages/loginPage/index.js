@@ -1,6 +1,6 @@
-import axios from "axios";
 import React, { Fragment, useState } from "react";
 import FormLoginDetails from "../../components/userForm/formLoginDetails";
+import axios from "axios";
 
 const RegisterForm = () => {
 
@@ -25,7 +25,6 @@ const RegisterForm = () => {
             setErrorMsg(e.response.data.errorMessage);
         }
     };
-    // console.log(errorMsg);
 
     const handleChange = (e) => {
         e.preventDefault();

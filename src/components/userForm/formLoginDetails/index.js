@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { NavLink } from "react-router-dom";
 import InputTextField from '../../inputFields/inputText';
 
-const FormUserDetails = ({ handelSubmit, handleChange, values }) => {
+const FormUserDetails = ({ handelSubmit, handleChange, values, errorMsg }) => {
 
     const loginFields = [
         {
@@ -26,7 +26,8 @@ const FormUserDetails = ({ handelSubmit, handleChange, values }) => {
                     return (
                         <InputTextField key={index}
                             eachField={eachField}
-                            handleChange={handleChange} />
+                            handleChange={handleChange}
+                            errorMsg={errorMsg} />
                     )
                 })}
                 <button onClick={handelSubmit}>

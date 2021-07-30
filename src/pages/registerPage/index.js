@@ -1,6 +1,6 @@
-import axios from "axios";
 import React, { useState } from "react";
 import FormUserDetails from "../../components/userForm/formUserDetails";
+import axios from "axios";
 
 const RegisterForm = () => {
 
