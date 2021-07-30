@@ -1,6 +1,6 @@
 import React from "react";
 
-const InputRadioButton = ({ eachField, handleChange }) => {
+const InputRadioButton = ({ eachField, handleChange, errorMsg }) => {
 
     return (
         <div>
@@ -16,6 +16,7 @@ const InputRadioButton = ({ eachField, handleChange }) => {
                     </div>
                 )
             })}
+            <div>{errorMsg && errorMsg.genderError}</div>
         </div>
     );
 };

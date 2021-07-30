@@ -3,7 +3,7 @@ import InputNumberField from '../../inputFields/inputNumber';
 import InputRadioButton from "../../inputFields/inputRadioButton";
 import InputTextField from '../../inputFields/inputText';
 
-const FormUserDetails = ({ handelSubmit, handleChange, values }) => {
+const FormUserDetails = ({ handelSubmit, handleChange, values, errorMsg }) => {
 
     const userFields = [
         {
@@ -74,14 +74,17 @@ const FormUserDetails = ({ handelSubmit, handleChange, values }) => {
                         eachField.type === "number"
                             ? <InputNumberField key={index}
                                 eachField={eachField}
-                                handleChange={handleChange} />
+                                handleChange={handleChange}
+                                errorMsg={errorMsg} />
                             : eachField.type === "radio"
                                 ? <InputRadioButton key={index}
                                     eachField={eachField}
-                                    handleChange={handleChange} />
+                                    handleChange={handleChange}
+                                    errorMsg={errorMsg} />
                                 : <InputTextField key={index}
                                     eachField={eachField}
-                                    handleChange={handleChange} />
+                                    handleChange={handleChange}
+                                    errorMsg={errorMsg} />
                     )
                 })}
                 <button onClick={handelSubmit}>

@@ -1,6 +1,6 @@
 import React from "react";
 
-const InputNumberField = ({ eachField, handleChange }) => {
+const InputNumberField = ({ eachField, handleChange, errorMsg }) => {
 
     return (
         <div>
@@ -11,6 +11,7 @@ const InputNumberField = ({ eachField, handleChange }) => {
                 value={eachField.defaultValue}
                 onChange={handleChange}
             />
+            <div>{errorMsg && errorMsg.mobileError}</div>
         </div>
     );
 };

@@ -21,62 +21,50 @@ router.post("/register", async (req, res) => {
     } = req.body.values;
 
     // Validation
-    if (!email || !password || !confirmPassword || !firstName || !lastName || !gender || !fatherName || !motherName || !mobileNumber)
-        return res.status(400).json({ errorMessage: "All fields are required..." });
+    if (!email && !password && !confirmPassword && !firstName && !lastName && !gender && !fatherName && !motherName && !mobileNumber)
+        return res.status(400).json({ ErrorMsg: { errorMessage: "All fields are required..." } });
 
     const emailValidate = validator.isEmail(email);
     if (!emailValidate)
         return res.status(400).json({
-            errorMessage: "Enter valid email"
+            ErrorMsg: { emailError: "Enter valid email" }
         });
 
     const passwordValidate = validator.isStrongPassword(password);
     if (!passwordValidate)
         return res.status(400).json({
-            errorMessage: "password length atleast 8 character and must contain 1 lowercase, 1 uppercase, 1 number, 1 symbol."
+            ErrorMsg: {
+                passwordError: "password length atleast 8 character and must contain 1 lowercase, 1 uppercase, 1 number, 1 symbol."
+            }
         });
 
-    if (password !== confirmPassword)
+    if (passwordValidate !== confirmPassword)
         return res.status(400).json({
-            errorMessage: "password must be match",
-        });
-
-    if (!firstName)
-        return res.status(400).json({
-            errorMessage: "Enter Firstname",
-        });
-
-    if (!lastName)
-        return res.status(400).json({
-            errorMessage: "Enter Lastname",
+            ErrorMsg: { confirmPasswordError: "password must be match" }
         });
 
     if (!gender)
         return res.status(400).json({
-            errorMessage: "Enter gender",
-        });
-
-    if (!fatherName)
-        return res.status(400).json({
-            errorMessage: "Enter Father's name",
-        });
-
-    if (!motherName)
-        return res.status(400).json({
-            errorMessage: "Enter Mother's name",
+            ErrorMsg: { genderError: "Choose gender" }
         });
 
     if (mobileNumber.length < 10)
         return res.status(400).json({
-            errorMessage: "Enter 10 digit mobile number",
+            ErrorMsg: { mobileError: "Enter 10 digit mobile number" }
         });
+
+    if (!firstName || !lastName || !fatherName || !motherName)
+        return res.status(400).json({
+            ErrorMsg: { nameError: "Enter a valid name" }
+        });
+
 
     // Check email id is already exist or not
     const isExistemail = await RegisterUser.findOne({ email: email });
     if (isExistemail)
         return res
             .status(400)
-            .json({ errorMessage: "This email is already exist. Please enter another email" });
+            .json({ ErrorMsg: { emailError: "This email is already exist. Please enter another email" } });
 
     // Pasword hashing
     const salt = await bcrypt.genSalt(12);
