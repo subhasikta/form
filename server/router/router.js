@@ -3,8 +3,8 @@ const router = express.Router();
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const RegisterUser = require("../model/register");
 const SecretKey = require("../config/keys");
+const RegisterUser = require("../model/register");
 
 // Register
 router.post("/register", async (req, res) => {
@@ -44,9 +44,13 @@ router.post("/register", async (req, res) => {
             ErrorMsg: { confirmPasswordError: "password must be match" }
         });
 
-    if (!firstName || !lastName || !fatherName || !motherName)
+    if (!firstName)
         return res.status(400).json({
-            ErrorMsg: { nameError: "Enter a valid name" }
+            ErrorMsg: { firstNameError: "Enter a valid name" }
+        });
+    if (!lastName)
+        return res.status(400).json({
+            ErrorMsg: { lastNameError: "Enter a valid name" }
         });
 
     if (!gender)
@@ -54,14 +58,19 @@ router.post("/register", async (req, res) => {
             ErrorMsg: { genderError: "Choose gender" }
         });
 
+    if (!fatherName)
+        return res.status(400).json({
+            ErrorMsg: { fatherNameError: "Enter a valid name" }
+        });
+
+    if (!motherName)
+        return res.status(400).json({
+            ErrorMsg: { motherNameError: "Enter a valid name" }
+        });
+
     if (mobileNumber.length < 10)
         return res.status(400).json({
             ErrorMsg: { mobileError: "Enter 10 digit mobile number" }
-        });
-
-    if (!firstName || !lastName || !fatherName || !motherName)
-        return res.status(400).json({
-            ErrorMsg: { nameError: "Enter a valid name" }
         });
 
 

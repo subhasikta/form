@@ -53,16 +53,11 @@ const FormUserDetails = ({ handelSubmit, handleChange, values, errorMsg }) => {
             defaultValue: values.motherName
         },
         {
-            type: "text",
+            type: "number",
             name: "mobileNumber",
             placeholder: "Mobile Number",
             defaultValue: values.mobileNumber
-        },
-        // {
-        //     type: "select",
-        //     name: "city",
-        //     citySelect: ["Berhampur", "xiegfi", "kjxanid"]
-        // },
+        }
     ];
 
     return (

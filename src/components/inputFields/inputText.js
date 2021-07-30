@@ -14,9 +14,11 @@ const InputTextField = ({ eachField, handleChange, errorMsg }) => {
                 eachField.name === "email" ? errorMsg.emailError
                 : eachField.name === "password" ? errorMsg.passwordError
                     : eachField.name === "confirmPassword" ? errorMsg.confirmPasswordError
-                        : errorMsg.nameError}</div>
+                        : eachField.name === "firstName" ? errorMsg.firstNameError
+                            : eachField.name === "lastName" ? errorMsg.lastNameError
+                                : eachField.name === "fatherName" ? errorMsg.fatherNameError
+                                    : eachField.name === "motherName" ? errorMsg.motherNameError : null}</div>
 
-            {/* <div>{errorMsg && eachField.name === "email" ? errorMsg.emailError : errorMsg.passwordError}</div> */}
         </div>
     );
 };

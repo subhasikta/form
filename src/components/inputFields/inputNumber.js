@@ -11,7 +11,7 @@ const InputNumberField = ({ eachField, handleChange, errorMsg }) => {
                 value={eachField.defaultValue}
                 onChange={handleChange}
             />
-            <div>{errorMsg && errorMsg.mobileError}</div>
+            <div>{errorMsg && eachField.name === "mobileNumber" ? errorMsg.mobileError : null}</div>
         </div>
     );
 };
