@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const SecretKey = require("../config/keys");
 const RegisterUser = require("../model/register");
 
+
 // Register
 router.post("/register", async (req, res) => {
     const {
@@ -19,7 +20,6 @@ router.post("/register", async (req, res) => {
         motherName,
         mobileNumber
     } = req.body.values;
-
 
     // Validation
     if (!email && !password && !confirmPassword && !firstName && !lastName && !gender && !fatherName && !motherName && !mobileNumber)
@@ -73,7 +73,6 @@ router.post("/register", async (req, res) => {
             ErrorMsg: { mobileError: "Enter 10 digit mobile number" }
         });
 
-
     // Check email id is already exist or not
     const isExistemail = await RegisterUser.findOne({ email: email });
     if (isExistemail)
@@ -107,6 +106,7 @@ router.post("/register", async (req, res) => {
 });
 
 
+
 // Login
 router.post("/login", async (req, res) => {
     try {
@@ -135,5 +135,17 @@ router.post("/login", async (req, res) => {
         res.status(500).json({ errorMessage: "Internal server error." });
     }
 });
+
+
+
+// Delete User
+router.delete('/deleteaccount/:id', async (req, res) => {
+    try {
+        const deleteUser = await RegisterUser.findByIdAndDelete({ _id: req.params.id });
+        res.status(200).json({ message: "deleted user successfully." });
+    } catch (error) {
+        res.status(500).json({ errorMessage: "failed" });
+    }
+})
 
 module.exports = router;

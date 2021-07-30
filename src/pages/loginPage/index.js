@@ -1,9 +1,11 @@
 import React, { Fragment, useState } from "react";
+import { useHistory } from "react-router-dom";
 import FormLoginDetails from "../../components/userForm/formLoginDetails";
 import axios from "axios";
 
 const RegisterForm = () => {
-
+    const history = useHistory();
+    
     const [state, setstate] = useState({
         email: "",
         password: ""
@@ -20,6 +22,9 @@ const RegisterForm = () => {
                 email: "",
                 password: ""
             });
+            window.localStorage.setItem('AuthToken', response.data.token);
+            window.localStorage.setItem('id',response.data.id);
+            history.push('/');
         } catch (e) {
             setErrorMsg(e.response.data.ErrorMsg);
         }
