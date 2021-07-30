@@ -20,6 +20,7 @@ router.post("/register", async (req, res) => {
         mobileNumber
     } = req.body.values;
 
+
     // Validation
     if (!email && !password && !confirmPassword && !firstName && !lastName && !gender && !fatherName && !motherName && !mobileNumber)
         return res.status(400).json({ ErrorMsg: { errorMessage: "All fields are required..." } });
@@ -38,9 +39,14 @@ router.post("/register", async (req, res) => {
             }
         });
 
-    if (passwordValidate !== confirmPassword)
+    if (password !== confirmPassword)
         return res.status(400).json({
             ErrorMsg: { confirmPasswordError: "password must be match" }
+        });
+
+    if (!firstName || !lastName || !fatherName || !motherName)
+        return res.status(400).json({
+            ErrorMsg: { nameError: "Enter a valid name" }
         });
 
     if (!gender)
