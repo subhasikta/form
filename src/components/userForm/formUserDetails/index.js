@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import InputNumberField from '../../inputFields/inputNumber';
 import InputRadioButton from "../../inputFields/inputRadioButton";
+import InputDate from "../../inputFields/inputDate";
 import InputTextField from '../../inputFields/inputText';
 
 const FormUserDetails = ({ handelSubmit, handleChange, values, errorMsg }) => {
@@ -38,7 +39,13 @@ const FormUserDetails = ({ handelSubmit, handleChange, values, errorMsg }) => {
         },
         {
             type: "radio",
-            gender: ["Male", "Female", "Other"]
+            gender: ["Male", "Female", "Other"],
+        },
+        {
+            type: "date",
+            name: "dob",
+            placeholder: "dd-mm-yyyy",
+            defaultValue: values.dob
         },
         {
             type: "text",
@@ -76,10 +83,15 @@ const FormUserDetails = ({ handelSubmit, handleChange, values, errorMsg }) => {
                                     eachField={eachField}
                                     handleChange={handleChange}
                                     errorMsg={errorMsg} />
-                                : <InputTextField key={index}
-                                    eachField={eachField}
-                                    handleChange={handleChange}
-                                    errorMsg={errorMsg} />
+                                : eachField.type === "date"
+                                    ? <InputDate key={index}
+                                        eachField={eachField}
+                                        handleChange={handleChange}
+                                        errorMsg={errorMsg} />
+                                    : <InputTextField key={index}
+                                        eachField={eachField}
+                                        handleChange={handleChange}
+                                        errorMsg={errorMsg} />
                     )
                 })}
                 <button onClick={handelSubmit}>

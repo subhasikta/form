@@ -25,6 +25,10 @@ const RegisterShema = new mongoose.Schema({
         type: String,
         require: true
     },
+    dob: {
+        type : String,
+        require: true
+    },
     fatherName: {
         type: String,
         require: true

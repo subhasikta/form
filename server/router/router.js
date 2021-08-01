@@ -16,13 +16,14 @@ router.post("/register", async (req, res) => {
         firstName,
         lastName,
         gender,
+        dob,
         fatherName,
         motherName,
         mobileNumber
     } = req.body.values;
 
     // Validation
-    if (!email && !password && !confirmPassword && !firstName && !lastName && !gender && !fatherName && !motherName && !mobileNumber)
+    if (!email && !password && !confirmPassword && !firstName && !lastName && !gender && !dob && !fatherName && !motherName && !mobileNumber)
         return res.status(400).json({ ErrorMsg: { errorMessage: "All fields are required..." } });
 
     const emailValidate = validator.isEmail(email);
@@ -56,6 +57,11 @@ router.post("/register", async (req, res) => {
     if (!gender)
         return res.status(400).json({
             ErrorMsg: { genderError: "Choose gender" }
+        });
+
+    if (!dob)
+        return res.status(400).json({
+            ErrorMsg: { dobError: "Enter your DOB" }
         });
 
     if (!fatherName)
@@ -93,6 +99,7 @@ router.post("/register", async (req, res) => {
             firstName: firstName,
             lastName: lastName,
             gender: gender,
+            dob: dob,
             fatherName: fatherName,
             motherName: motherName,
             mobileNumber: mobileNumber

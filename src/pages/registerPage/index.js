@@ -11,6 +11,7 @@ const RegisterForm = () => {
         firstName: "",
         lastName: "",
         gender: "",
+        dob: "",
         fatherName: "",
         motherName: "",
         mobileNumber: "",
@@ -20,6 +21,7 @@ const RegisterForm = () => {
 
     const handelSubmit = async (e) => {
         e.preventDefault();
+        console.log(values);
         try {
             const response = await axios.post("http://localhost:5000/api/register", { values });
             console.log("res", response);
@@ -31,6 +33,7 @@ const RegisterForm = () => {
                 firstName: "",
                 lastName: "",
                 gender: "",
+                dob: "",
                 fatherName: "",
                 motherName: "",
                 mobileNumber: "",
@@ -54,6 +57,7 @@ const RegisterForm = () => {
         firstName,
         lastName,
         gender,
+        dob,
         fatherName,
         motherName,
         mobileNumber,
@@ -66,6 +70,7 @@ const RegisterForm = () => {
         firstName,
         lastName,
         gender,
+        dob,
         fatherName,
         motherName,
         mobileNumber,
